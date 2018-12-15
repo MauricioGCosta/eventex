@@ -20,5 +20,4 @@ import eventex.core.views
 urlpatterns = [
     url(r'^$', eventex.core.views.home),
     url(r'^admin/', include(admin.site.urls)),
-
 ]
