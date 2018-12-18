@@ -17,9 +17,7 @@
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
 def verbing(s):
-    # +++your code here+++
-    return
-
+    return (s + 'ly' if (len(s) > 2 and s[-3:].upper() == 'ING') else s +'ing' if (len(s) > 2 and s[:-3].upper() != 'ING') else s)
 
 # E. not_bad
 # Given a string, find the first appearance of the
@@ -30,8 +28,18 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-    # +++your code here+++
-    return
+    achouNot = achouBad = False
+    texto = s.split()
+    for palavra in texto:
+        if (palavra[:3].upper() == 'NOT'):
+            achouNot = True
+        elif (achouNot and palavra[:3].upper() == 'BAD'):
+            achouBad = True
+    if (achouNot and achouBad):
+        retorno = s[0:s.index('not')] + 'good' + s[s.index('bad') + 3:]
+    else:
+        retorno = s
+    return retorno
 
 
 # F. front_back
@@ -42,8 +50,20 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    # +++your code here+++
-    return
+    if (len(a) % 2 == 0):
+        a1 = a[:int(len(a)/2)]
+        a2 = a[int(len(a)/2):]
+    else: # eh impar
+        a1 = a[:int(len(a)/2 + 1)]
+        a2 = a[int(len(a)/2 + 1):]
+    if (len(b) % 2 == 0):
+        b1 = b[:int(len(b)/2)]
+        b2 = b[int(len(b)/2):]
+    else: # eh impar
+        b1 = b[:int(len(b)/2 + 1)]
+        b2 = b[int(len(b)/2 + 1):]
+
+    return a1 + b1 + a2 + b2
 
 
 # Simple provided test() function used in main() to print
