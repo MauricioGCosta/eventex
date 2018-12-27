@@ -39,7 +39,6 @@ print_words() and print_top().
 
 import sys
 
-
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
@@ -48,12 +47,55 @@ import sys
 
 ###
 
+def kernel(filename):
+    vetor = ['']
+    semRepeticao = ['']
+    contaPalavras = {}
+    contador = 0
+    arquivo = open(filename)          #Abro o arquivo
+    for linha in arquivo.readlines():
+        if (len(linha) > 1):
+            vetor += linha.split()    #popula vetor com as palavras do arquivo
+    arquivo.close()                   #Fecha o arquivo
+
+    contaPalavras[vetor[0].lower()] = 0
+    for word in vetor:
+        if (word.lower() not in semRepeticao):
+            semRepeticao.append(word.lower())
+            contador = 1
+        else:
+            contador = int(contaPalavras[word.lower()]) + 1
+        contaPalavras[word.lower()] = contador
+
+    return contaPalavras
+
+def print_words(filename):
+
+    contaPalavras = kernel(filename)
+
+    for item in sorted(contaPalavras, key=contaPalavras.get, reverse=True):
+        print(item, contaPalavras[item])
+
+    return     #retorna um dicionario
+
+def print_top(filename):
+
+    contaPalavras = kernel(filename)
+    contador = 0
+
+    for item in sorted(contaPalavras, key=contaPalavras.get, reverse=True):
+        print(item, contaPalavras[item])
+        contador += 1
+        if contador > 19:
+            break
+    return
+
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
 def main():
-    if len(sys.argv) != 3:
-        print('usage: ./wordcount.py {--count | --topcount} file')
-        sys.exit(1)
+    # if len(sys.argv) != 3:
+    #     print('usage: ./wordcount.py {--count | --topcount} file')
+    #     sys.exit(1)
 
     option = sys.argv[1]
     filename = sys.argv[2]
@@ -64,7 +106,6 @@ def main():
     else:
         print('unknown option: ' + option)
         sys.exit(1)
-
 
 if __name__ == '__main__':
     main()
