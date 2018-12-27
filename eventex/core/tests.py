@@ -11,3 +11,4 @@ class HomeTest(TestCase):
     def test_Template(self):
         self.assertTemplateUsed(self.response, 'index.html')
 
+
